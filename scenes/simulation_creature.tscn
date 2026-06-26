@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://simcr001"]
+
+[ext_resource type="Script" path="res://scripts/simulation/creature_physics.gd" id="1_cp"]
+
+[node name="SimulationCreature" type="Node3D"]
+script = ExtResource("1_cp")

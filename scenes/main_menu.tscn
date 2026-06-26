@@ -1,0 +1,153 @@
+[gd_scene load_steps=3 format=3 uid="uid://mainmenu01"]
+
+[ext_resource type="Script" path="res://scripts/ui/main_menu.gd" id="1_mm"]
+[ext_resource type="Script" path="res://scripts/ui/settings_menu.gd" id="2_sm"]
+
+[node name="MainMenu" type="Control"]
+script = ExtResource("1_mm")
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="BgLayer" type="SubViewportContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+stretch = true
+
+[node name="BgViewport" type="SubViewport" parent="BgLayer"]
+size = Vector2i(1920, 1080)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="BgLayer/BgViewport"]
+environment = SubResource("Environment_bg")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="BgLayer/BgViewport"]
+transform = Transform3D(0.866, -0.354, 0.354, 0, 0.707, 0.707, -0.5, -0.612, 0.612, 0, 10, 0)
+shadow_enabled = true
+
+[node name="Camera3D" type="Camera3D" parent="BgLayer/BgViewport"]
+transform = Transform3D(1, 0, 0, 0, 0.8, -0.6, 0, 0.6, 0.8, 0, 6, 10)
+
+[node name="Panel" type="PanelContainer" parent="."]
+layout_mode = 1
+anchor_right = 0.0
+anchor_bottom = 1.0
+offset_right = 340.0
+self_modulate = Color(0.05, 0.05, 0.1, 0.82)
+
+[node name="VBox" type="VBoxContainer" parent="Panel"]
+layout_mode = 2
+theme_override_constants/separation = 18
+offset_left = 32.0
+offset_top = 32.0
+offset_right = 308.0
+offset_bottom = 800.0
+
+[node name="Title" type="Label" parent="Panel/VBox"]
+layout_mode = 2
+text = "BioForge"
+theme_override_font_sizes/font_size = 52
+theme_override_colors/font_color = Color(0.2, 0.85, 1.0)
+
+[node name="Spacer" type="Control" parent="Panel/VBox"]
+layout_mode = 2
+custom_minimum_size = Vector2(0, 60)
+
+[node name="BtnStart" type="Button" parent="Panel/VBox"]
+layout_mode = 2
+custom_minimum_size = Vector2(260, 56)
+text = "Начать"
+theme_override_font_sizes/font_size = 22
+
+[node name="BtnSettings" type="Button" parent="Panel/VBox"]
+layout_mode = 2
+custom_minimum_size = Vector2(260, 56)
+text = "Настройки"
+theme_override_font_sizes/font_size = 22
+
+[node name="BtnQuit" type="Button" parent="Panel/VBox"]
+layout_mode = 2
+custom_minimum_size = Vector2(260, 56)
+text = "Выйти"
+theme_override_font_sizes/font_size = 22
+
+[node name="SettingsOverlay" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -250.0
+offset_top = -300.0
+offset_right = 250.0
+offset_bottom = 300.0
+script = ExtResource("2_sm")
+visible = false
+
+[node name="VBox" type="VBoxContainer" parent="SettingsOverlay"]
+layout_mode = 2
+theme_override_constants/separation = 14
+
+[node name="LblTitle" type="Label" parent="SettingsOverlay/VBox"]
+text = "Настройки"
+theme_override_font_sizes/font_size = 28
+
+[node name="MasterRow" type="HBoxContainer" parent="SettingsOverlay/VBox"]
+[node name="LblM" type="Label" parent="SettingsOverlay/VBox/MasterRow"]
+text = "Громкость"
+custom_minimum_size = Vector2(140, 0)
+[node name="Slider" type="HSlider" parent="SettingsOverlay/VBox/MasterRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = 0.0
+max_value = 1.0
+step = 0.01
+value = 1.0
+
+[node name="MusicRow" type="HBoxContainer" parent="SettingsOverlay/VBox"]
+[node name="LblMu" type="Label" parent="SettingsOverlay/VBox/MusicRow"]
+text = "Музыка"
+custom_minimum_size = Vector2(140, 0)
+[node name="Slider" type="HSlider" parent="SettingsOverlay/VBox/MusicRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = 0.0
+max_value = 1.0
+step = 0.01
+value = 0.8
+
+[node name="SfxRow" type="HBoxContainer" parent="SettingsOverlay/VBox"]
+[node name="LblSfx" type="Label" parent="SettingsOverlay/VBox/SfxRow"]
+text = "Звуки"
+custom_minimum_size = Vector2(140, 0)
+[node name="Slider" type="HSlider" parent="SettingsOverlay/VBox/SfxRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = 0.0
+max_value = 1.0
+step = 0.01
+value = 1.0
+
+[node name="VsyncRow" type="HBoxContainer" parent="SettingsOverlay/VBox"]
+[node name="LblV" type="Label" parent="SettingsOverlay/VBox/VsyncRow"]
+text = "VSync"
+custom_minimum_size = Vector2(140, 0)
+[node name="Check" type="CheckButton" parent="SettingsOverlay/VBox/VsyncRow"]
+button_pressed = true
+
+[node name="ShadowRow" type="HBoxContainer" parent="SettingsOverlay/VBox"]
+[node name="LblSh" type="Label" parent="SettingsOverlay/VBox/ShadowRow"]
+text = "Тени"
+custom_minimum_size = Vector2(140, 0)
+[node name="Option" type="OptionButton" parent="SettingsOverlay/VBox/ShadowRow"]
+
+[node name="BtnApply" type="Button" parent="SettingsOverlay/VBox"]
+text = "Применить"
+custom_minimum_size = Vector2(0, 44)
+
+[node name="BtnClose" type="Button" parent="SettingsOverlay/VBox"]
+text = "Закрыть"
+custom_minimum_size = Vector2(0, 44)

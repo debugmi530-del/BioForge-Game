@@ -1,0 +1,183 @@
+[gd_scene load_steps=4 format=3 uid="uid://builder01"]
+
+[ext_resource type="Script" path="res://scripts/builder/creature_builder.gd" id="1_cb"]
+[ext_resource type="Script" path="res://scripts/camera/builder_camera.gd" id="2_cam"]
+[ext_resource type="Script" path="res://scripts/ui/builder_ui.gd" id="3_ui"]
+
+[node name="Builder3D" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.866, -0.354, 0.354, 0, 0.707, 0.707, -0.5, -0.612, 0.612, 10, 20, 10)
+light_energy = 1.2
+shadow_enabled = true
+
+[node name="DirectionalLight3DFill" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866, -0.25, -0.433, 0, 0.866, -0.5, 0.5, -0.433, -0.75, -8, 12, -5)
+light_energy = 0.4
+shadow_enabled = false
+
+[node name="Camera3D" type="Camera3D" parent="."]
+script = ExtResource("2_cam")
+transform = Transform3D(1, 0, 0, 0, 0.8, -0.6, 0, 0.6, 0.8, 0, 5, 8)
+fov = 60.0
+
+[node name="Builder" type="Node3D" parent="."]
+script = ExtResource("1_cb")
+
+[node name="PartRoot" type="Node3D" parent="Builder"]
+
+[node name="GhostRoot" type="Node3D" parent="Builder"]
+
+[node name="GridMesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.005, 0)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = 10
+
+[node name="BuilderUI" type="Control" parent="CanvasLayer"]
+script = ExtResource("3_ui")
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="ToolPanel" type="PanelContainer" parent="CanvasLayer/BuilderUI"]
+layout_mode = 1
+anchor_bottom = 1.0
+offset_right = 220.0
+self_modulate = Color(0.05, 0.05, 0.1, 0.85)
+
+[node name="VBox" type="VBoxContainer" parent="CanvasLayer/BuilderUI/ToolPanel"]
+layout_mode = 2
+theme_override_constants/separation = 8
+offset_left = 10
+offset_right = 210
+offset_top = 10
+
+[node name="LblTools" type="Label" parent="CanvasLayer/BuilderUI/ToolPanel/VBox"]
+text = "Инструменты"
+theme_override_font_sizes/font_size = 15
+theme_override_colors/font_color = Color(0.6, 0.9, 1.0)
+
+[node name="BtnSelect" type="Button" parent="CanvasLayer/BuilderUI/ToolPanel/VBox"]
+custom_minimum_size = Vector2(190, 38)
+text = "◎  Выбор"
+
+[node name="Sep1" type="HSeparator" parent="CanvasLayer/BuilderUI/ToolPanel/VBox"]
+
+[node name="BtnJointBall" type="Button" parent="CanvasLayer/BuilderUI/ToolPanel/VBox"]
+custom_minimum_size = Vector2(190, 38)
+text = "●  Шарнир (оранжевый)"
+
+[node name="BtnJointFixed" type="Button" parent="CanvasLayer/BuilderUI/ToolPanel/VBox"]
+custom_minimum_size = Vector2(190, 38)
+text = "■  Крепление (синее)"
+
+[node name="BtnBone" type="Button" parent="CanvasLayer/BuilderUI/ToolPanel/VBox"]
+custom_minimum_size = Vector2(190, 38)
+text = "━  Кость"
+
+[node name="BtnMuscle" type="Button" parent="CanvasLayer/BuilderUI/ToolPanel/VBox"]
+custom_minimum_size = Vector2(190, 38)
+text = "◈  Мышца"
+
+[node name="BtnErase" type="Button" parent="CanvasLayer/BuilderUI/ToolPanel/VBox"]
+custom_minimum_size = Vector2(190, 38)
+text = "✕  Стереть"
+
+[node name="Sep2" type="HSeparator" parent="CanvasLayer/BuilderUI/ToolPanel/VBox"]
+
+[node name="LblSym" type="Label" parent="CanvasLayer/BuilderUI/ToolPanel/VBox"]
+text = "Симметрия"
+theme_override_colors/font_color = Color(0.6, 0.9, 1.0)
+
+[node name="SymmetryRow" type="HBoxContainer" parent="CanvasLayer/BuilderUI/ToolPanel/VBox"]
+
+[node name="SymmetrySlider" type="HSlider" parent="CanvasLayer/BuilderUI/ToolPanel/VBox/SymmetryRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = 1
+max_value = 10
+step = 1
+value = 1
+
+[node name="SymmetryLabel" type="Label" parent="CanvasLayer/BuilderUI/ToolPanel/VBox/SymmetryRow"]
+text = "Без симметрии"
+custom_minimum_size = Vector2(100, 0)
+
+[node name="Sep3" type="HSeparator" parent="CanvasLayer/BuilderUI/ToolPanel/VBox"]
+
+[node name="BtnRandom" type="Button" parent="CanvasLayer/BuilderUI/ToolPanel/VBox"]
+custom_minimum_size = Vector2(190, 38)
+text = "⚄  Случайное существо"
+
+[node name="BtnSimulate" type="Button" parent="CanvasLayer/BuilderUI/ToolPanel/VBox"]
+custom_minimum_size = Vector2(190, 44)
+text = "▶  Запустить симуляцию"
+theme_override_colors/font_color = Color(0.2, 1.0, 0.4)
+
+[node name="BtnBack" type="Button" parent="CanvasLayer/BuilderUI/ToolPanel/VBox"]
+custom_minimum_size = Vector2(190, 38)
+text = "←  Главное меню"
+
+[node name="PropsPanel" type="PanelContainer" parent="CanvasLayer/BuilderUI"]
+layout_mode = 1
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -240.0
+offset_right = 0.0
+self_modulate = Color(0.05, 0.05, 0.12, 0.85)
+visible = false
+
+[node name="VBox" type="VBoxContainer" parent="CanvasLayer/BuilderUI/PropsPanel"]
+layout_mode = 2
+theme_override_constants/separation = 10
+offset_left = 10
+offset_top = 10
+offset_right = 230
+
+[node name="LblProps" type="Label" parent="CanvasLayer/BuilderUI/PropsPanel/VBox"]
+text = "Свойства детали"
+theme_override_colors/font_color = Color(0.6, 0.9, 1.0)
+
+[node name="WidthRow" type="HBoxContainer" parent="CanvasLayer/BuilderUI/PropsPanel/VBox"]
+
+[node name="LblW" type="Label" parent="CanvasLayer/BuilderUI/PropsPanel/VBox/WidthRow"]
+text = "Ширина"
+custom_minimum_size = Vector2(80, 0)
+
+[node name="WidthSlider" type="HSlider" parent="CanvasLayer/BuilderUI/PropsPanel/VBox/WidthRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="WidthVal" type="Label" parent="CanvasLayer/BuilderUI/PropsPanel/VBox/WidthRow"]
+text = "0.10"
+custom_minimum_size = Vector2(40, 0)
+
+[node name="StrengthRow" type="HBoxContainer" parent="CanvasLayer/BuilderUI/PropsPanel/VBox"]
+
+[node name="LblStr" type="Label" parent="CanvasLayer/BuilderUI/PropsPanel/VBox/StrengthRow"]
+text = "Сила"
+custom_minimum_size = Vector2(80, 0)
+
+[node name="StrengthSlider" type="HSlider" parent="CanvasLayer/BuilderUI/PropsPanel/VBox/StrengthRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="StrengthVal" type="Label" parent="CanvasLayer/BuilderUI/PropsPanel/VBox/StrengthRow"]
+text = "1.0"
+custom_minimum_size = Vector2(40, 0)
+
+[node name="StatusLabel" type="Label" parent="CanvasLayer/BuilderUI"]
+layout_mode = 1
+anchor_top = 1.0
+anchor_bottom = 1.0
+anchor_right = 1.0
+offset_top = -36.0
+text = "Выбери инструмент слева"
+horizontal_alignment = 1
+theme_override_colors/font_color = Color(0.7, 0.9, 1.0)
+theme_override_font_sizes/font_size = 14

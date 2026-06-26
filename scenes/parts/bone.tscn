@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bone001"]
+
+[ext_resource type="Script" path="res://scripts/builder/parts/bone_part.gd" id="1_bone"]
+
+[node name="Bone" type="Node3D"]
+script = ExtResource("1_bone")

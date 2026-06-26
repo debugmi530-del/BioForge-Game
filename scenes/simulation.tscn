@@ -1,0 +1,121 @@
+[gd_scene load_steps=3 format=3 uid="uid://sim01"]
+
+[ext_resource type="Script" path="res://scripts/simulation/simulation_manager.gd" id="1_sm"]
+[ext_resource type="Script" path="res://scripts/ui/simulation_ui.gd" id="2_ui"]
+
+[node name="Simulation" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.866, -0.354, 0.354, 0, 0.707, 0.707, -0.5, -0.612, 0.612, 10, 30, 10)
+light_energy = 1.3
+shadow_enabled = true
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.866, -0.5, 0, 0.5, 0.866, 0, 8, 16)
+fov = 70.0
+
+[node name="Ground" type="StaticBody3D" parent="."]
+[node name="GroundShape" type="CollisionShape3D" parent="Ground"]
+shape = PlaneShape3D.new()
+[node name="GroundMesh" type="MeshInstance3D" parent="Ground"]
+transform = Transform3D(60, 0, 0, 0, 1, 0, 0, 0, 60, 0, 0, 0)
+
+[node name="SimulationManager" type="Node3D" parent="."]
+script = ExtResource("1_sm")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = 10
+
+[node name="SimulationUI" type="Control" parent="CanvasLayer"]
+script = ExtResource("2_ui")
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Panel" type="PanelContainer" parent="CanvasLayer/SimulationUI"]
+layout_mode = 1
+anchor_bottom = 1.0
+offset_right = 260.0
+self_modulate = Color(0.04, 0.04, 0.1, 0.88)
+
+[node name="VBox" type="VBoxContainer" parent="CanvasLayer/SimulationUI/Panel"]
+layout_mode = 2
+theme_override_constants/separation = 10
+offset_left = 12
+offset_top = 12
+offset_right = 248
+
+[node name="LblTitle" type="Label" parent="CanvasLayer/SimulationUI/Panel/VBox"]
+text = "Симуляция ИИ"
+theme_override_font_sizes/font_size = 20
+theme_override_colors/font_color = Color(0.2, 0.85, 1.0)
+
+[node name="ModeRow" type="HBoxContainer" parent="CanvasLayer/SimulationUI/Panel/VBox"]
+[node name="LblMode" type="Label" parent="CanvasLayer/SimulationUI/Panel/VBox/ModeRow"]
+text = "Режим"
+custom_minimum_size = Vector2(90, 0)
+[node name="ModeOption" type="OptionButton" parent="CanvasLayer/SimulationUI/Panel/VBox/ModeRow"]
+size_flags_horizontal = 3
+
+[node name="PopRow" type="HBoxContainer" parent="CanvasLayer/SimulationUI/Panel/VBox"]
+[node name="LblPop" type="Label" parent="CanvasLayer/SimulationUI/Panel/VBox/PopRow"]
+text = "Популяция"
+custom_minimum_size = Vector2(90, 0)
+[node name="PopInput" type="LineEdit" parent="CanvasLayer/SimulationUI/Panel/VBox/PopRow"]
+size_flags_horizontal = 3
+text = "100"
+
+[node name="DisplayRow" type="HBoxContainer" parent="CanvasLayer/SimulationUI/Panel/VBox"]
+[node name="LblDisp" type="Label" parent="CanvasLayer/SimulationUI/Panel/VBox/DisplayRow"]
+text = "Показывать"
+custom_minimum_size = Vector2(90, 0)
+[node name="DisplayInput" type="LineEdit" parent="CanvasLayer/SimulationUI/Panel/VBox/DisplayRow"]
+size_flags_horizontal = 3
+text = "10"
+
+[node name="EvalRow" type="HBoxContainer" parent="CanvasLayer/SimulationUI/Panel/VBox"]
+[node name="LblEval" type="Label" parent="CanvasLayer/SimulationUI/Panel/VBox/EvalRow"]
+text = "Время (сек)"
+custom_minimum_size = Vector2(90, 0)
+[node name="EvalInput" type="LineEdit" parent="CanvasLayer/SimulationUI/Panel/VBox/EvalRow"]
+size_flags_horizontal = 3
+text = "8"
+
+[node name="Sep" type="HSeparator" parent="CanvasLayer/SimulationUI/Panel/VBox"]
+
+[node name="BtnStartAI" type="Button" parent="CanvasLayer/SimulationUI/Panel/VBox"]
+custom_minimum_size = Vector2(0, 44)
+text = "▶  Запустить ИИ"
+theme_override_colors/font_color = Color(0.2, 1.0, 0.4)
+
+[node name="BtnStopAI" type="Button" parent="CanvasLayer/SimulationUI/Panel/VBox"]
+custom_minimum_size = Vector2(0, 44)
+text = "■  Остановить ИИ"
+
+[node name="Sep2" type="HSeparator" parent="CanvasLayer/SimulationUI/Panel/VBox"]
+
+[node name="LabelGen" type="Label" parent="CanvasLayer/SimulationUI/Panel/VBox"]
+text = "Поколение: 0"
+
+[node name="LabelFitness" type="Label" parent="CanvasLayer/SimulationUI/Panel/VBox"]
+text = "Лучшая приспособленность: 0.000"
+
+[node name="LabelEval" type="Label" parent="CanvasLayer/SimulationUI/Panel/VBox"]
+text = ""
+
+[node name="LabelStatus" type="Label" parent="CanvasLayer/SimulationUI/Panel/VBox"]
+text = "Настрой параметры и нажми Запустить ИИ"
+autowrap_mode = 3
+theme_override_colors/font_color = Color(0.7, 0.85, 1.0)
+
+[node name="BtnApplyBest" type="Button" parent="CanvasLayer/SimulationUI/Panel/VBox"]
+custom_minimum_size = Vector2(0, 40)
+text = "★  Применить лучший геном"
+disabled = true
+
+[node name="BtnBack" type="Button" parent="CanvasLayer/SimulationUI/Panel/VBox"]
+custom_minimum_size = Vector2(0, 40)
+text = "←  Назад в редактор"
